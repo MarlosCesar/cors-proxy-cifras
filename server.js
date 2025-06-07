@@ -6,7 +6,6 @@ app.get('/', (req, res) => {
   res.send('CORS Proxy está online!');
 });
 
-// Endpoint principal do proxy
 app.get('/proxy', async (req, res) => {
   const url = req.query.url;
   if (!url) return res.status(400).send('URL obrigatória');
@@ -15,7 +14,6 @@ app.get('/proxy', async (req, res) => {
     if (!response.ok) return res.status(500).send('Falha ao buscar recurso');
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Methods', 'GET');
-    // Copia o content-type original da imagem
     res.set('Content-Type', response.headers.get('content-type'));
     response.body.pipe(res);
   } catch (e) {
